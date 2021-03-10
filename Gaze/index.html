@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Malik Bensalem">
+    <meta name="description" content="Information about countries">
+    <meta name="keywords" content="Malik Bensalem, MalikBensalem, Bensalem, Malik, Open Weather, Climatic Forecast, Geonames, country code, country info ,timezone ,geocoder, RestCountries , country flags,cURL, API, Json, country, place">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MB Countries</title>
+    <link rel="icon" href="img/icon.png" type="image/x-icon">
+    <script src='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js'></script>
+    <link href='https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css' rel='stylesheet' />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <link rel="stylesheet"
+      id="theme_link"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.3.1/materia/bootstrap.min.css"/>
+    <link rel="stylesheet" href="libs/css/navbarLeft.css">
+    <link rel="stylesheet" href="libs/css/docs.css">
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"></script>
+    <script src="libs/js/navbarLeft.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.0.1/dist/leaflet.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v1.0.0/leaflet.markercluster.js'></script>
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v1.0.0/MarkerCluster.css' rel='stylesheet' />
+    <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v1.0.0/MarkerCluster.Default.css' rel='stylesheet' />
+    <nav class="navbar navbar-expand-md navbar-dark bg-primary" style="max-height:250px; overflow: auto; position: fixed;">
+      <span style="background-color:white; width: 100%; top:-12px; position: -webkit-sticky; position: sticky;  z-index: 1; ">
+        <span class="navbar-brand" style="margin: 0%; width:85%; background-color:white;">
+          <a href="../"><img src="img/home.png" alt="Home" height="20"style="margin-right:5px;" width="20"></a>
+          <select id="selectCountry" style="height:25px; padding:0px;" class="custom-select custom-select-md" name="Select country" >
+            <option value="" disabled selected>Select country</option>
+          </select>
+        </span>
+        <button style="float: right;" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+          aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <img  src="img/menu-style1-512.png" height="20" width="15" >
+        </button>
+      </span>
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav" >
+          <li class="nav-item dropdown">
+            <p class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Weather</p>
+            <div class="dropdown-menu">
+              <p class="dropdown-item"> <img class="ddimg" id="weatherIcon" src="" alt="Weather description"> <span id="weather"></span></p>
+              <p class="dropdown-item"> <img class="ddimg" src="img/wind.png" alt="wind" > <span id="wind"></span></p>
+              <p class="dropdown-item"> <img class="ddimg" src="img/temp.png" alt="temperature & humidity"> <span id="temp"></span></p>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <p class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Time zone</p>
+            <div class="dropdown-menu">
+              <p class="dropdown-item"> <img class="ddimg" src="img/time.png" alt="time"><span id="time"></span> </p>
+              <p class="dropdown-item"> <img class="ddimg" src="img/world.png" alt="timezone"><span id="timezone"></span></p>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <p class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Latest Covid Update</p>
+            <div class="dropdown-menu">
+              <p class="dropdown-item"><img class="ddimg" src="img/covid.png" alt="cases"> <span id="cases"></span></p>
+              <p class="dropdown-item"><img class="ddimg" src="img/heart.png" alt="recovered"><span id="recovered"></span></p>
+              <p class="dropdown-item"><img class="ddimg" src="img/rip.png" alt="deaths"><span id="deaths"></span></p>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <p class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Latest News</p>
+            <div class="dropdown-menu">
+              <p class="dropdown-item" onclick="on()" ><img class="ddimg" src="img/news.png" alt="title"> <a class="title" id="tTop"></a> </p>
+              <p class="dropdown-item"><img class="ddimg" src="img/pen.svg.png" alt="author"><span id="author"></span></p>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <p class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Currency/Rates</p>
+            <div class="dropdown-menu">
+              <p class="dropdown-item"><span style="font-size: 15px;">€</span> <span id="rates"></span></p>
+              <p class="dropdown-item"><span id="symbol" style="font-size: 15px;"></span><span id="currency"></span></p>
+            </div>
+          </li>
+          <div class="nav-item dropdown">
+            <p class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">About</p>
+            <div class="dropdown-menu">
+              <p class="dropdown-item"><img id="flag" class="ddimg" src="" alt="flag"><span id="language"></span> </p>
+              <p class="dropdown-item"><img class="ddimg" src="img/palaces.png" alt="capital"><span id="capital"></span> </p>
+              <p class="dropdown-item"><img class="ddimg" src="img/pop.png" alt="population"> <span id="population"></span></p>
+              <p class="dropdown-item"><img class="ddimg" src="img/area.png" alt="area"><span id="area"></span></p>
+            </div>
+          </div>
+        </ul>
+      </div>
+    </nav>
+    <div id="overlay" onclick="off()" style="overflow: auto; background-color: white;"></div>
+
+    <div id="load" style="overflow: auto; background-color: white;">
+      <img src="https://qz.com/wp-content/uploads/2016/09/loading.gif?w=2800" alt="Loading">
+    </div>
+    
+    <div id="mapid" style="width: 100%; height:100%;"></div>
+    <script src="libs/js/jquery-2.2.3.min.js"></script>
+    <script src="libs/js/script.js"></script>
+    <script>
+      var markers = new L.MarkerClusterGroup();
+    </script>
+  </body>
+</html>
