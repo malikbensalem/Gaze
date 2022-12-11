@@ -5,7 +5,7 @@ sabbr = "";labbr = "";lng = "";lat = "";cty = "";cty2 = "";poly = ""; n="";s="";
 mark = new L.MarkerClusterGroup();
 
 earthIcon = L.icon({
-  iconUrl: 'https://image.flaticon.com/icons/png/512/1684/1684445.png',
+  iconUrl: 'img/eathquake.svg',
   shadowUrl: 'https://www.timbuktutravel.com/assets/images/marker-shadow.png',
   iconSize:     [30, 30], 
   shadowSize:   [30, 30], 
